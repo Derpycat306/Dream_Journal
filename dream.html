@@ -1,0 +1,223 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('bg4.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* This will keep the background fixed while scrolling */
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Change from height to min-height */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: white;
+            font-family: 'Lucida Handwriting', Cursive;
+            overflow-y: auto;
+            font-size: 30px;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+            width: 80%;
+            max-width: 900px;
+        }
+        h1 {
+            font-size: 2.0em;
+            white-space: nowrap;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+        .dream-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: "Inter", sans-serif;
+        }
+        .dream-note {
+            text-align: left;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            max-width: 100%;
+            max-height: 50vh; /* Prevents overflowing */
+            overflow-y: auto; /* Adds vertical scroll when needed */
+            font-size: 16px; /* Add this line to set a smaller font size */
+            font-family: "Inter", sans-serif;
+        }
+        .dream-date {
+            text-align: right;
+            font-size: 12px;
+            font-family: "Inter", sans-serif;
+        }
+        .dream-analysis {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 14px;
+            max-height: 50vh;
+            overflow-y: auto; /* Prevents analysis from overflowing */
+            font-family: "Inter", sans-serif;
+        }
+        button {
+            font-size: 1.5rem;
+            color: #fafafa;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #fafafa;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 3px 3px #fafafa;
+            cursor: pointer;
+            margin: 35px 0;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(3px, 3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✮⋆˙ Dream Details ✮⋆˙</h1>
+        <div class="dream-content">
+            <div class="dream-note-container">
+                <div id="dreamContent" class="dream-note"></div>
+                <div id="dreamDate" class="dream-date"></div>
+            </div>
+            <div class="dream-analysis">
+                <h2>Dream Analysis</h2>
+                <p id="analysisText">No analysis available.</p>
+            </div>
+            <button onclick="location.href='index.html'">Back</button>
+        </div>
+    </div>
+
+    <script>
+        function loadDream() {
+            const params = new URLSearchParams(window.location.search);
+            const dreamId = params.get('dreamId');
+
+            let dreams = JSON.parse(localStorage.getItem('dreams')) || [];
+
+            if (dreamId !== null && dreams[dreamId]) {
+                let dream = dreams[dreamId];
+                document.getElementById('dreamContent').textContent = dream.text || 'No notes available';
+                document.getElementById('dreamDate').textContent = dream.date;
+                
+                analyzeDream(dream.text);
+            } else {
+                document.getElementById('dreamContent').innerHTML = '<p>Dream not found.</p>';
+            }
+        }
+
+        function analyzeDream(text) {
+            let analysisText = document.getElementById('analysisText');
+
+            let analysis = {
+                "fall": "Feeling of anxiety, uncertainty, or lack of confidence.",
+                "fell": "Feeling of anxiety, uncertainty, or lack of confidence.",
+                "falling": "Feeling of anxiety, uncertainty, or lack of confidence.",
+                "flying": "desire for freedom, independence, or a sense of achievement.",
+                "flew": "desire for freedom, independence, or a sense of achievement.",
+                "running": "escaping from problems, fears, or responsibilities.",
+                "run": "escaping from problems, fears, or responsibilities.",
+                "ran": "escaping from problems, fears, or responsibilities.",
+                "climbing": "overcoming obstacles, achieving goals, or reaching new heights.",
+                "climbed": "overcoming obstacles, achieving goals, or reaching new heights.",
+                "climb": "overcoming obstacles, achieving goals, or reaching new heights.",
+                "travel": "desire for change, adventure, or exploration.",
+                "traveling": "desire for change, adventure, or exploration.",
+                "travelled": "desire for change, adventure, or exploration.",
+                "naked": "feeling vulnerable, exposed, or insecure.",
+                "teeth": "concerns about appearance, communication, or self-image.",
+                "tooth": "concerns about appearance, communication, or self-image.",
+                "hair": "identity, self-expression, or personal style.",
+                "death": "endings, transitions, or new beginnings.",
+                "dead": "endings, transitions, or new beginnings.",
+                "pregnant": "new ideas, projects, or opportunities.",
+                "pregnancy": "new ideas, projects, or opportunities.",
+                "baby": "new beginnings, innocence, or vulnerability.",
+                "chase": "avoiding confrontation, facing fears, or feeling pursued.",
+                "chased": "avoiding confrontation, facing fears, or feeling pursued.",
+                "water": "emotions, intuition, or the unconscious mind.",
+                "fire": "Feeling of passion, anger, or transformation.",
+                "flame": "Feeling of passion, anger, or transformation.",
+                "snake": "fear, transformation, or hidden threats.",
+                "house": "self, family, or personal life.",
+                "home": "self, family, or personal life.",
+                "school": "learning, growth, or self-improvement.",
+                "money": "Feeling of value, self-worth, or financial security.",
+                "food": "Feeling of fulfillment, or emotional satisfaction.",
+                "eating": "Feeling of fulfillment, or emotional satisfaction.",
+                "family": "relationships, support, or connection.",
+                "friend": "relationships, support, or connection.",
+                "drowning": "Feeling overwhelmed, helpless, or out of control.",
+                "lost": "Feeling of confusion, uncertainty, or lack of direction.",
+                "test": "Feeling of being judged, evaluated, or challenged.",
+                "exam": "Feeling of being judged, evaluated, or challenged.",
+                "love": "Feeling of affection, connection, or intimacy.",
+                "kiss": "Feeling of affection, connection, or intimacy.",
+                "marriage": "commitment, partnership, or unity.",
+                "wedding": "commitment, partnership, or unity.",
+                "fight": "conflict, confrontation, or aggression.",
+                "argument": "conflict, confrontation, or aggression.",
+                "police": "authority, rules, or control.",
+                "doctor": "healing, health, or well-being.",
+                "hospital": "healing, health, or well-being.",
+                "injury": "Feeling of vulnerability, weakness, or pain.",
+                "sick": "Feeling of vulnerability, weakness, or pain.",
+                "illness": "Feeling of vulnerability, weakness, or pain.",
+                "phone": "communication, connection, or information.",
+                "message": "communication, connection, or information.",
+                "text": "communication, connection, or information.",
+                "mail": "communication, connection, or information.",
+                "email": "communication, connection, or information.",
+                "letter": "communication, connection, or information.",
+                "spider": "fear, danger, or manipulation.",
+                "bug": "irritation, annoyance, or minor problems.",
+                "insect": "irritation, annoyance, or minor problems.",
+                "animal": "instincts, desires, or primal urges.",
+                "late": "Feeling of urgency, pressure, or missed opportunities.",
+                "time": "Feeling of urgency, pressure, or missed opportunities.",
+                "timed": "Feeling of urgency, pressure, or missed opportunities.",
+                "clock": "Feeling of urgency, pressure, or missed opportunities.",
+                "watch": "Feeling of urgency, pressure, or missed opportunities.",
+                "fail": "Feeling of disappointment, failure, or fear of inadequacy.",
+                "failed": "Feeling of disappointment, failure, or fear of inadequacy.",
+                "wet": "Feeling of vulnerability, exposure, or emotional release.",
+                "dry": "Feeling of stability, security, or emotional restraint.",
+            };
+
+            // Use regular expression with word boundaries for exact word matching
+            let matchedWords = Object.keys(analysis).filter(word => {
+                const regex = new RegExp(`\\b${word}\\b`, 'i'); // 'i' for case-insensitive matching
+                return regex.test(text.toLowerCase());
+            });
+
+            if (matchedWords.length > 0) {
+                analysisText.innerHTML = matchedWords.map(word => `<strong>${word}:</strong> ${analysis[word]}`).join('<br>');
+            } else {
+                analysisText.textContent = "No specific analysis found.";
+            }
+        }
+
+        window.onload = loadDream;
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920f8117ccc76776',t:'MTc0MjA3ODMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

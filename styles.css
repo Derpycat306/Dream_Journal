@@ -1,0 +1,54 @@
+body {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    background-color: #8259ec;
+    font-family: "Lucida Handwriting", Cursive;
+    padding-top: 300px;
+}
+
+body {
+    background-image: url('bg4.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* From Uiverse.io by zjssun */ 
+button {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffffc8;
+    text-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #ffffffc8;
+    transition: 0.5s ease;
+    user-select: none;
+  }
+  .dream-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.dream-text, .dream-analysis {
+    width: 45%;
+}
+
+.dream-analysis {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+}

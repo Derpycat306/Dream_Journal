@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Your Dream</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #8259ec; /* Matches the purple background */
+            color: white;
+            font-family: 'Lucida Handwriting', Cursive;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 30px;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+            width: 80%;
+            max-width: 900px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.0em;
+            white-space: nowrap;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            /* Remove these two lines:
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); */
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="text"], textarea {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            background-color: white;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            max-width: 100%;
+            max-height: 50vh; /* Prevents overflowing */
+            overflow-y: auto; /* Adds vertical scroll when needed */
+            font-size: 16px; /* Add this line to set a smaller font size */
+            font-family: "Inter", sans-serif;
+            background: rgba( 0, 0, 0, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 17px );
+            -webkit-backdrop-filter: blur( 17px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            box-shadow: -2px 16px 34px -5px rgba(0,0,0,0.81);
+            -webkit-box-shadow: -2px 16px 34px -5px rgba(0,0,0,0.81);
+            -moz-box-shadow: -2px 16px 34px -5px rgba(0,0,0,0.81);
+        }
+        input[type="text"] {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            height: 200px;
+            margin-top: 10px;
+        }
+        button {
+            font-size: 1.5rem;
+            color: #fafafa;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #fafafa;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 3px 3px #fafafa;
+            cursor: pointer;
+            margin: 35px 0;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(3px, 3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✮⋆˙ Write Your Dream ✮⋆˙</h1>
+        <div class="input-group">
+            <input type="text" id="dreamTitle" placeholder="Enter dream title...">
+            <textarea id="dreamInput" placeholder="Describe your dream..."></textarea>
+        </div>
+        <br>
+        <button onclick="saveDream()">Save</button>
+        <button onclick="location.href='index.html'">Back</button>
+    </div>
+    <script>
+        function saveDream() {
+            let title = document.getElementById('dreamTitle').value.trim();
+            let dream = document.getElementById('dreamInput').value.trim();
+             if (!title || !dream) {
+                alert('Please enter both a title and a description.');
+                return;
+            }
+            let dreams = JSON.parse(localStorage.getItem('dreams')) || [];
+            dreams.push({ title: title, text: dream, date: new Date().toLocaleString() });
+            localStorage.setItem('dreams', JSON.stringify(dreams));
+            alert('Dream saved!');
+            location.href = 'index.html';
+        }
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920e75e3bc7f8d2b',t:'MTc0MjA2NzQzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
